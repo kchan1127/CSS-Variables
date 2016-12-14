@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" type="text/css" href="csshake.min.css">
+  <meta charset="UTF-8">
+  <title>Scoped CSS Variables and JS</title>
+</head>
+<body>
+<div class="shake-slow shake-constant">
+  <h2>Update CSS Variables with <span class='h1'>JS</span></h2>
+</div>
+  <div class="controls">
+    <label for="spacing">Spacing:</label>
+    <input type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+
+    <label for="blur">Blur:</label>
+    <input type="range" name="blur" min="0" max="25" value="0" data-sizing="px">
+
+    <label for="base">Base Color</label>
+    <input type="color" name="base" value="#6100ff">
+  </div>
+
+  <img src="https://upload.wikimedia.org/wikipedia/en/9/99/MarioSMBW.png">
+
+  <style>
+    :root{
+      --base: #6100ff;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+
+    img{
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .h1{
+      color: var(--base);
+      text-shadow: 2px 2px 8px #0b010b;
+    }
+    /*
+      misc styles, nothing to do with CSS variables
+    */
+
+    body {
+      text-align: center;
+    }
+
+    body {
+      background: #227bbb;
+      color: white;
+      font-family: 'helvetica neue', sans-serif;
+      font-weight: 100;
+      font-size: 50px;
+    }
+
+    .controls {
+      margin-bottom: 50px;
+    }
+
+    a{
+      color" var(--base);
+
+    }
+
+    input {
+      width:100px;
+    }
+  </style>
+
+  <script>
+    var inputs = document.querySelectorAll('.controls input');
+
+    function handleUpdate() {
+      var suffix = this.dataset.sizing || '';
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    }
+
+    inputs.forEach(input => input.addEventListener('change', handleUpdate));
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+  </script>
+
+<script>
+  document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
+</script>
+
+</body>
+</html>
